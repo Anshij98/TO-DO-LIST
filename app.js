@@ -7,6 +7,14 @@ const express = require('express'),
     app = express(),
     port = 8000
 
+const path = require('path');
+
+// Set the views directory
+app.set('views', path.join(__dirname, 'views'));
+
+// Set the view engine to EJS
+app.set('view engine', 'ejs');
+
 app.use(bodyParser.urlencoded({
     extended: false
 }));
@@ -25,11 +33,11 @@ let todolist = [];
 
 /* The to do list and the form are displayed */
 app.get('/todo', function (req, res) {
-        res.render('todo.ejs', {
-            todolist,
-            clickHandler: "func1();"
-        });
-    })
+        res.render('todo', { // Remove the .ejs extension
+    todolist,
+    clickHandler: "func1();"
+});
+
 
     /* Adding an item to the to do list */
     .post('/todo/add/', function (req, res) {
@@ -86,3 +94,6 @@ app.get('/todo', function (req, res) {
     });
 // Export app
 module.exports = app;
+
+
+
